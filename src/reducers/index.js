@@ -24,16 +24,16 @@ export function uiReducer(state = { isMessageDetailOpen: true }, action) {
 
 export function threadReducer(state=null, action) { // set to default action
     switch (action.type) {
-        case 'RECEIVE_THREAD': {
+        case 'RECEIVE_THREAD':
               return action.thread;
-            }
+
             default:
             return state
     }
 
      // in order to get /* ×
 // Error: Reducer "thread" returned undefined during initialization. If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined. */
-return state
+//return state
 }
 
 export default combineReducers({
