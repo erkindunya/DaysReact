@@ -4,10 +4,13 @@ import PropTypes from 'prop-types'
 import * as api from '../../../api/message'
 import Conversation from './Conversation'
 
+import {
+  receiveConversation
+} from '../../../actions/Conversation'
 class ConversationContainer extends Component {
-  state = {
-    conversation: []
-  }
+ // state = {
+   // conversation: []
+  //}
 
   componentDidMount() {
     this.fetchConversation(this.props.match.params.username)
@@ -15,7 +18,8 @@ class ConversationContainer extends Component {
 
   fetchConversation = async (username) => {
     const conversation = await api.fetchConversation(username)
-    this.setState({ conversation })
+    //this.dispatch({ conversation })
+    this.props.receiveConversation(conversation)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,8 +29,9 @@ class ConversationContainer extends Component {
   }
 
   render() {
-    const { match } = this.props
-    const { conversation } = this.state
+    const { match, conversation } = this.props
+    // const { match } = this.props
+    // const { conversation } = this.state
 
     return (
       <Conversation
@@ -39,6 +44,15 @@ class ConversationContainer extends Component {
 
 ConversationContainer.propTypes = {
   match: PropTypes.object.isRequired,
+  conversation: PropTypes.array.isRequired,
+  receiveConversation: PropTypes.func.isRequired,
+}
+const mapStateToProps = (state) => ({
+  conversation: state.conversation
+})
+
+const mapStateToDispatch = {
+  receiveConversation
 }
 
 export default ConversationContainer
